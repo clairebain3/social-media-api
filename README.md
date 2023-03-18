@@ -4,7 +4,8 @@ Description: This is a back end application that functions as a social media API
 
 Installation: N/A
 
-Usage: Please visit this link to view a walkthrough of the project
+Usage: Please visit this link to view a walkthrough of the project: https://watch.screencastify.com/v/gHnz2m5iYJstbpxFFkYG
+
 
 Credits N/A
 
