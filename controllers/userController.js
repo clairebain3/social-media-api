@@ -42,27 +42,6 @@ module.exports = {
   },
 // add friend to user's friend list
 
-createReaction(req, res) {
-    Reaction.create(req.body)
-      .then((reaction) => {
-        return Thought.findOneAndUpdate(
-          { _id: req.body.thoughtId },
-          { $addToSet: { reactions: reaction._id } },
-          { new: true }
-        );
-      })
-      .then((thought) =>
-        !thought
-          ? res.status(404).json({
-              message: 'Reaction created, but found no thought with that ID',
-            })
-          : res.json('Created the thought 🎉')
-      )
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  },
 
   addFriend(req, res) {
      User.create(req.body)
