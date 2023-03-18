@@ -41,15 +41,41 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 // add friend to user's friend list
-  addFriend(req, res) {
-    User.findOneAndUpdate(
-          { _id: req.body.userId },
-          { $addToSet: { friends: friend._id } },
+
+createReaction(req, res) {
+    Reaction.create(req.body)
+      .then((reaction) => {
+        return Thought.findOneAndUpdate(
+          { _id: req.body.thoughtId },
+          { $addToSet: { reactions: reaction._id } },
           { new: true }
-        )
+        );
+      })
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({
+              message: 'Reaction created, but found no thought with that ID',
+            })
+          : res.json('Created the thought 🎉')
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
+  addFriend(req, res) {
+     User.create(req.body)
+        .then((user) => {
+            return User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $addToSet: { friends: user._id } },
+          { new: true }
+            );
+  })
       
-      .then((friend) =>
-        !friend
+      .then((user) =>
+        !user
           ? res.status(404).json({
               message: 'no user found',
             })
