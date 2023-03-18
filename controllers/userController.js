@@ -44,17 +44,17 @@ module.exports = {
 
 
   addFriend(req, res) {
-     User.create(req.body)
-        .then((user) => {
+    const friend = User.create(req.body)
+        .then((friend) => {
             return User.findOneAndUpdate(
           { _id: req.body.userId },
-          { $addToSet: { friends: user._id } },
+          { $addToSet: { friends: friend._id } },
           { new: true }
             );
   })
       
-      .then((user) =>
-        !user
+      .then((friend) =>
+        !friend
           ? res.status(404).json({
               message: 'no user found',
             })
